@@ -3,6 +3,7 @@
 Streamlit web app dengan antarmuka Bahasa Indonesia.
 """
 
+import sys
 from collections import Counter
 from pathlib import Path
 
@@ -10,6 +11,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import streamlit as st
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
 
 from src import analysis, cipher, cracker
 from src.cipher import ALPHABET
@@ -28,10 +33,6 @@ SAMPLE_TEXTS = {
         "structural patterns which leak information through monoalphabetic substitution ciphers."
     ),
 }
-
-ROOT_DIR = Path(__file__).resolve().parent.parent
-RESULTS_DIR = ROOT_DIR / "results"
-
 
 def init_session_state() -> None:
     """Inisialisasi state sesi jika belum ada."""
@@ -324,8 +325,8 @@ def main() -> None:
     # ---------------- TAB 4: EVALUASI ----------------
     with tab4:
         st.header("Hasil Evaluasi Akurasi")
-        summary_path = RESULTS_DIR / "summary.csv"
-        plot_path = RESULTS_DIR / "accuracy_vs_length.png"
+        summary_path = ROOT_DIR / "results" / "summary.csv"
+        plot_path = ROOT_DIR / "results" / "accuracy_vs_length.png"
 
         if summary_path.is_file():
             st.subheader("Ringkasan Rata-rata Akurasi & Waktu")
