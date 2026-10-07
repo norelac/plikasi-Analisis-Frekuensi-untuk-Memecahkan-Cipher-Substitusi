@@ -9,12 +9,12 @@ Centang `[x]` setelah selesai. Kerjakan berurutan.
 **Selesai jika:** `pip install -r requirements.txt` dan `pytest -q` (kosong) berjalan.
 
 ## M1 Referensi frekuensi
-- [ ] `scripts/build_reference.py`: baca korpus (opsi `--format leipzig|plain`), buang
+- [x] `scripts/build_reference.py`: baca korpus (opsi `--format leipzig|plain`), buang
       selain A-Z, hitung unigram (%), bigram dan trigram (log-prob dengan add-one smoothing),
       simpan JSON.
-- [ ] `src/reference.py`: fungsi `load_reference(lang)` yang membaca JSON.
-- [ ] **BERHENTI dan minta pengguna menaruh korpus di `data/corpus/`** bila belum ada.
-      Jangan membuat angka sendiri.
+- [x] `src/reference.py`: fungsi `load_reference(lang)` yang membaca JSON.
+- [x] **BERHENTI dan minta pengguna menaruh korpus di `data/corpus/`** bila belum ada.
+      Jangan membuat angka sendiri. (Korpus sudah tersedia, tidak perlu berhenti.)
 **Selesai jika:** `ref_en.json` dan `ref_id.json` ada, dan unigram-nya masuk akal
 (Inggris: E tertinggi; Indonesia: A tertinggi).
 
