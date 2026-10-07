@@ -40,9 +40,9 @@ Centang `[x]` setelah selesai. Kerjakan berurutan.
 **Selesai jika:** AC1 terpenuhi, AC2 diukur dan dilaporkan.
 
 ## M5 Evaluasi
-- [ ] `scripts/evaluate.py` sesuai FR5. Simpan `results/evaluation.csv` dan
+- [x] `scripts/evaluate.py` sesuai FR5. Simpan `results/evaluation.csv` dan
       `results/accuracy_vs_length.png`.
-- [ ] Siapkan teks uji dari korpus (potong dari bagian yang tidak dipakai sebagai referensi
+- [x] Siapkan teks uji dari korpus (potong dari bagian yang tidak dipakai sebagai referensi
       bila memungkinkan, supaya evaluasi tidak bias).
 **Selesai jika:** CSV dan grafik terbentuk dari eksekusi nyata.
 
