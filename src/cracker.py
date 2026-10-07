@@ -4,17 +4,21 @@ Semua fungsi murni. Randomness memakai parameter `seed` agar reproducible.
 """
 
 import random
-import string
 from collections import Counter
 
 from src import cipher
-from src.analysis import chi_square
+from src.analysis import chi_square, clean_text
+from src.cipher import ALPHABET
 from src.reference import load_reference
-
-ALPHABET = string.ascii_uppercase
 
 _ref_cache: dict[str, dict] = {}
 _trigram_cache: dict[str, list[float]] = {}
+
+
+def clear_cache() -> None:
+    """Bersihkan cache referensi dan tabel trigram."""
+    _ref_cache.clear()
+    _trigram_cache.clear()
 
 
 def _get_reference(lang: str) -> dict:
@@ -39,18 +43,13 @@ def _trigram_table(lang: str) -> list[float]:
     return _trigram_cache[lang]
 
 
-def _clean(text: str) -> str:
-    """Ambil hanya huruf A-Z dari teks (ubah ke huruf besar)."""
-    return "".join(ch for ch in text.upper() if ch in ALPHABET)
-
-
 def score_text(text: str, lang: str, bigram_weight: float = 0.0) -> float:
     """Skor kecocokan teks terhadap bahasa: jumlah log-probabilitas trigram.
 
     `bigram_weight` opsional menambah bobot jumlah log-probabilitas bigram.
     """
     ref = _get_reference(lang)
-    cleaned = _clean(text)
+    cleaned = clean_text(text)
     score = 0.0
     trigram = ref["trigram"]
     for i in range(len(cleaned) - 2):
@@ -67,6 +66,8 @@ def crack_caesar(ciphertext: str, lang: str) -> tuple[int, str]:
 
     Mengembalikan (shift, plaintext).
     """
+    if not clean_text(ciphertext):
+        return 0, ciphertext
     ref_unigram = _get_reference(lang)["unigram"]
     best_shift, best_score, best_plain = 0, float("inf"), ciphertext
     for shift in range(26):
@@ -99,9 +100,12 @@ def frequency_guess(ciphertext: str, lang: str) -> str:
     Huruf yang tak muncul diisi sisa huruf agar tetap permutasi valid.
     Mengembalikan kunci format enkripsi (siap pakai `substitution_decrypt`).
     """
+    cleaned = clean_text(ciphertext)
+    if not cleaned:
+        return ALPHABET
     ref_unigram = _get_reference(lang)["unigram"]
     plain_order = sorted(ALPHABET, key=lambda ch: (-ref_unigram[ch], ch))
-    counts = Counter(_clean(ciphertext))
+    counts = Counter(cleaned)
     cipher_order = sorted(counts, key=lambda ch: (-counts[ch], ch))
     cipher_order += [ch for ch in ALPHABET if ch not in counts]
     plain_of = dict(zip(cipher_order, plain_order))
@@ -134,7 +138,7 @@ def hill_climb(
     anggaran `max_iter` habis. Mengembalikan (key, plaintext, score) terbaik.
     """
     table = _trigram_table(lang)
-    arr = [ord(ch) - 65 for ch in _clean(ciphertext)]
+    arr = [ord(ch) - 65 for ch in clean_text(ciphertext)]
     if not arr:
         identity = ALPHABET
         return identity, ciphertext, 0.0
@@ -147,7 +151,8 @@ def hill_climb(
         starts.append(random_key)
 
     pairs = [(i, j) for i in range(26) for j in range(i + 1, 26)]
-    best_key, best_score = starts[0], float("-inf")
+    best_key = list(starts[0])
+    best_score = _score_key(arr, best_key, table)
     for start in starts:
         key = list(start)
         score = _score_key(arr, key, table)

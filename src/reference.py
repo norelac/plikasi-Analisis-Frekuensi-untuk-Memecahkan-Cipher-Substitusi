@@ -1,10 +1,10 @@
 """Muat dan validasi file referensi frekuensi (data/ref_<lang>.json)."""
 
 import json
-import string
 from pathlib import Path
 
-ALPHABET = string.ascii_uppercase
+from src.cipher import ALPHABET
+
 SUPPORTED_LANGS = ("en", "id")
 
 
@@ -34,8 +34,20 @@ def validate_reference(data: dict) -> None:
 
     if len(data["bigram"]) != 26**2:
         raise ValueError("Referensi tidak valid: bigram harus memuat 26^2 entri.")
+    if not all(
+        isinstance(v, (int, float)) and v <= 0.0 for v in data["bigram"].values()
+    ):
+        raise ValueError(
+            "Referensi tidak valid: semua nilai bigram harus log-probabilitas non-positif."
+        )
     if len(data["trigram"]) != 26**3:
         raise ValueError("Referensi tidak valid: trigram harus memuat 26^3 entri.")
+    if not all(
+        isinstance(v, (int, float)) and v <= 0.0 for v in data["trigram"].values()
+    ):
+        raise ValueError(
+            "Referensi tidak valid: semua nilai trigram harus log-probabilitas non-positif."
+        )
 
 
 def load_reference(lang: str) -> dict:

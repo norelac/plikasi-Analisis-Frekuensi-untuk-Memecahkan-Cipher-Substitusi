@@ -3,6 +3,8 @@
 import importlib.util
 from pathlib import Path
 
+import pytest
+
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent / "scripts"
 
 
@@ -66,3 +68,18 @@ def test_summarize_averages():
     assert summary["mean_accuracy"] == 0.75
     assert summary["mean_seconds"] == 3.0
     assert summary["n"] == 2
+
+
+def test_take_sample_rejects_over_target():
+    numbered = [f"kalimat {i}" for i in range(10)]
+    counts = [ev.letter_count(s) for s in numbered]
+    prefix = [0]
+    for c in counts:
+        prefix.append(prefix[-1] + c)
+    with pytest.raises(ValueError, match="melebihi total"):
+        ev.take_sample(numbered, counts, prefix, 999, 0, 1)
+
+
+def test_letter_count_mixed_input():
+    assert ev.letter_count("Halo, Dunia! 123 @#$") == 9
+    assert ev.letter_count("12345!@#$%^") == 0

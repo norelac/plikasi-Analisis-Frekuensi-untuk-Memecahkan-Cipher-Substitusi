@@ -123,3 +123,15 @@ def test_validate_reference_rejects_bad_data():
         reference.validate_reference(
             {"lang": "en", "unigram": {"A": 100.0}, "bigram": {}, "trigram": {}}
         )
+
+
+def test_validate_reference_rejects_positive_logprob():
+    valid = reference.load_reference("en")
+    corrupt = json.loads(json.dumps(valid))
+    corrupt["bigram"]["AA"] = 1.5
+    with pytest.raises(ValueError, match="non-positif"):
+        reference.validate_reference(corrupt)
+    corrupt["bigram"]["AA"] = -1.0
+    corrupt["trigram"]["AAA"] = 0.5
+    with pytest.raises(ValueError, match="non-positif"):
+        reference.validate_reference(corrupt)

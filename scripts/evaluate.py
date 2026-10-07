@@ -18,15 +18,19 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
-from src import cipher, cracker
+try:
+    from src import cipher, cracker
+except ModuleNotFoundError:
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+    from src import cipher, cracker
 
 ALPHABET = string.ascii_uppercase
 LENGTHS = [50, 100, 200, 500, 1000]
 LANGS = ("id", "en")
 METHODS = ("guess", "hill")
-RESULTS_DIR = Path("results")
+ROOT_DIR = Path(__file__).resolve().parent.parent
+RESULTS_DIR = ROOT_DIR / "results"
+SAMPLES_DIR = ROOT_DIR / "data" / "samples"
 
 
 def letter_count(text: str) -> int:
@@ -56,13 +60,22 @@ def take_sample(
     Sampel ke-`index` dari `n` mulai pada posisi huruf `index * total // n`.
     """
     total = prefix[-1]
+    if target > total:
+        raise ValueError(
+            f"Target huruf ({target}) melebihi total huruf teks ({total})."
+        )
     start = (index * total) // n
     first = max(0, bisect_right(prefix, start, 0, len(prefix) - 1) - 1)
     parts, gathered, i = [], 0, first
+    max_steps = len(sentences) * 2
+    steps = 0
     while gathered < target:
+        if steps >= max_steps:
+            break
         parts.append(sentences[i % len(sentences)])
         gathered += counts[i % len(sentences)]
         i += 1
+        steps += 1
     return " ".join(parts)
 
 
@@ -171,7 +184,7 @@ def main(argv: list[str] | None = None) -> int:
     n = 3 if args.quick else 20
     rows = []
     for lang_idx, lang in enumerate(LANGS):
-        path = Path("data/samples") / f"holdout_{lang}.txt"
+        path = SAMPLES_DIR / f"holdout_{lang}.txt"
         if not path.is_file():
             print(f"File holdout tidak ditemukan: {path}", file=sys.stderr)
             return 1

@@ -22,7 +22,7 @@ def clean_text(text: str) -> str:
     return "".join(ch for ch in text.upper() if ch in ALPHABET)
 
 
-def read_sentences(corpus_path: Path, format: str) -> list[str]:
+def read_sentences(corpus_path: Path, corpus_format: str) -> list[str]:
     """Baca korpus menjadi daftar kalimat mentah.
 
     Format `leipzig`: tiap baris `nomor<TAB>kalimat`.
@@ -32,7 +32,7 @@ def read_sentences(corpus_path: Path, format: str) -> list[str]:
     with corpus_path.open(encoding="utf-8") as f:
         for line in f:
             line = line.rstrip("\n")
-            if format == "leipzig":
+            if corpus_format == "leipzig":
                 _, _, sentence = line.partition("\t")
                 sentence = sentence if sentence else line
             else:

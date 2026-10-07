@@ -81,3 +81,39 @@ def test_score_text_prefers_correct_decryption():
 def test_detect_language():
     assert cracker.detect_language(load_sample("en", 300)) == "en"
     assert cracker.detect_language(load_sample("id", 300)) == "id"
+
+
+def test_crack_caesar_no_letters():
+    shift, plain = cracker.crack_caesar("123 !? #$", "id")
+    assert shift == 0
+    assert plain == "123 !? #$"
+
+
+def test_frequency_guess_no_letters():
+    key = cracker.frequency_guess("123 !?", "en")
+    assert key == cracker.ALPHABET
+
+
+def test_key_conversion_roundtrip():
+    for seed in range(5):
+        key = cipher.generate_key(seed)
+        dec = cracker._to_dec(key)
+        assert cracker._to_key_str(dec) == key
+
+
+def test_score_text_short_and_weighted():
+    assert cracker.score_text("A", "en") == 0.0
+    assert cracker.score_text("AB", "en") == 0.0
+    unweighted = cracker.score_text("ABC", "en", bigram_weight=0.0)
+    weighted = cracker.score_text("ABC", "en", bigram_weight=1.0)
+    assert weighted < unweighted  # bigram logprob is negative, reduces score
+
+
+def test_clear_cache():
+    cracker._get_reference("id")
+    cracker._trigram_table("id")
+    assert "id" in cracker._ref_cache
+    assert "id" in cracker._trigram_cache
+    cracker.clear_cache()
+    assert len(cracker._ref_cache) == 0
+    assert len(cracker._trigram_cache) == 0

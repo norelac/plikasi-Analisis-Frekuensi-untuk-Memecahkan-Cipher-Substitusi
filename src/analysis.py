@@ -3,15 +3,17 @@
 Semua fungsi murni dan case-insensitive (teks dibersihkan ke A-Z dulu).
 """
 
-import string
 from collections import Counter
 
-ALPHABET = string.ascii_uppercase
+from src.cipher import ALPHABET
 
 
-def _clean(text: str) -> str:
+def clean_text(text: str) -> str:
     """Ambil hanya huruf A-Z dari teks (ubah ke huruf besar)."""
     return "".join(ch for ch in text.upper() if ch in ALPHABET)
+
+
+_clean = clean_text
 
 
 def letter_frequencies(text: str) -> dict[str, float]:
