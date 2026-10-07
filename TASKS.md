@@ -19,9 +19,9 @@ Centang `[x]` setelah selesai. Kerjakan berurutan.
 (Inggris: E tertinggi; Indonesia: A tertinggi).
 
 ## M2 Cipher
-- [ ] `src/cipher.py`: `caesar_encrypt/decrypt`, `generate_key(seed)`,
+- [x] `src/cipher.py`: `caesar_encrypt/decrypt`, `generate_key(seed)`,
       `substitution_encrypt/decrypt`.
-- [ ] Tes: round-trip encrypt lalu decrypt sama dengan teks asli, huruf besar/kecil dan
+- [x] Tes: round-trip encrypt lalu decrypt sama dengan teks asli, huruf besar/kecil dan
       tanda baca terjaga, kunci valid (permutasi 26 huruf unik).
 **Selesai jika:** semua tes cipher lulus.
 
