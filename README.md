@@ -5,6 +5,23 @@ monoalfabetik) untuk teks Bahasa Indonesia dan Inggris. Tugas UTS Kriptografi.
 
 ## Instalasi
 
+Buat dan aktifkan virtual environment dulu (disarankan):
+
+```bash
+python -m venv .venv
+```
+
+Aktivasi:
+
+```bash
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
+# Windows CMD
+.venv\Scripts\activate.bat
+```
+
+Lalu install dependensi:
+
 ```bash
 pip install -r requirements.txt
 ```
