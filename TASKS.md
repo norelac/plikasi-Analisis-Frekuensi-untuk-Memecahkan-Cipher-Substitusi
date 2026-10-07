@@ -47,8 +47,8 @@ Centang `[x]` setelah selesai. Kerjakan berurutan.
 **Selesai jika:** CSV dan grafik terbentuk dari eksekusi nyata.
 
 ## M6 Aplikasi Streamlit
-- [ ] Tab Enkripsi, Analisis, Pecahkan (dengan editor pemetaan manual), Evaluasi.
-- [ ] Bar chart perbandingan ciphertext vs referensi.
+- [x] Tab Enkripsi, Analisis, Pecahkan (dengan editor pemetaan manual), Evaluasi.
+- [x] Bar chart perbandingan ciphertext vs referensi.
 **Selesai jika:** AC4 terpenuhi, dicoba manual dengan satu contoh Inggris dan satu Indonesia.
 
 ## M7 Finalisasi
