@@ -1,0 +1,60 @@
+# TASKS.md
+
+Centang `[x]` setelah selesai. Kerjakan berurutan.
+
+## M0 Setup
+- [x] Buat struktur folder sesuai PRD bagian 7, `requirements.txt`, `.gitignore`
+      (abaikan `data/corpus/`, `__pycache__/`, `.venv/`).
+- [x] README.md singkat berisi cara install dan menjalankan.
+**Selesai jika:** `pip install -r requirements.txt` dan `pytest -q` (kosong) berjalan.
+
+## M1 Referensi frekuensi
+- [ ] `scripts/build_reference.py`: baca korpus (opsi `--format leipzig|plain`), buang
+      selain A-Z, hitung unigram (%), bigram dan trigram (log-prob dengan add-one smoothing),
+      simpan JSON.
+- [ ] `src/reference.py`: fungsi `load_reference(lang)` yang membaca JSON.
+- [ ] **BERHENTI dan minta pengguna menaruh korpus di `data/corpus/`** bila belum ada.
+      Jangan membuat angka sendiri.
+**Selesai jika:** `ref_en.json` dan `ref_id.json` ada, dan unigram-nya masuk akal
+(Inggris: E tertinggi; Indonesia: A tertinggi).
+
+## M2 Cipher
+- [ ] `src/cipher.py`: `caesar_encrypt/decrypt`, `generate_key(seed)`,
+      `substitution_encrypt/decrypt`.
+- [ ] Tes: round-trip encrypt lalu decrypt sama dengan teks asli, huruf besar/kecil dan
+      tanda baca terjaga, kunci valid (permutasi 26 huruf unik).
+**Selesai jika:** semua tes cipher lulus.
+
+## M3 Analisis
+- [ ] `src/analysis.py`: `letter_frequencies`, `ngram_counts`, `chi_square`,
+      `index_of_coincidence`.
+- [ ] Tes dengan teks kecil yang hasilnya bisa dihitung manual.
+**Selesai jika:** tes lulus.
+
+## M4 Cracker
+- [ ] `crack_caesar(ciphertext, lang)` memakai chi-square.
+- [ ] `frequency_guess(ciphertext, lang)` memetakan peringkat frekuensi ke peringkat referensi.
+- [ ] `hill_climb(ciphertext, lang, restarts, iterations, seed)` memakai skor bigram+trigram.
+- [ ] `detect_language(ciphertext)` opsional (FR3).
+- [ ] Tes: Caesar 100% pada teks uji; hill climbing lebih baik dari `frequency_guess` saja.
+**Selesai jika:** AC1 terpenuhi, AC2 diukur dan dilaporkan.
+
+## M5 Evaluasi
+- [ ] `scripts/evaluate.py` sesuai FR5. Simpan `results/evaluation.csv` dan
+      `results/accuracy_vs_length.png`.
+- [ ] Siapkan teks uji dari korpus (potong dari bagian yang tidak dipakai sebagai referensi
+      bila memungkinkan, supaya evaluasi tidak bias).
+**Selesai jika:** CSV dan grafik terbentuk dari eksekusi nyata.
+
+## M6 Aplikasi Streamlit
+- [ ] Tab Enkripsi, Analisis, Pecahkan (dengan editor pemetaan manual), Evaluasi.
+- [ ] Bar chart perbandingan ciphertext vs referensi.
+**Selesai jika:** AC4 terpenuhi, dicoba manual dengan satu contoh Inggris dan satu Indonesia.
+
+## M7 Finalisasi
+- [ ] `pytest -q` lulus semua, `ruff check` bersih.
+- [ ] README dilengkapi: cara pakai, ringkasan hasil evaluasi, keterbatasan.
+- [ ] Buat `results/RINGKASAN.md`: angka evaluasi utama dan temuan, sebagai bahan slide.
+
+## Usulan (jangan dikerjakan tanpa persetujuan)
+-
