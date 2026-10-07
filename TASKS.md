@@ -32,11 +32,11 @@ Centang `[x]` setelah selesai. Kerjakan berurutan.
 **Selesai jika:** tes lulus.
 
 ## M4 Cracker
-- [ ] `crack_caesar(ciphertext, lang)` memakai chi-square.
-- [ ] `frequency_guess(ciphertext, lang)` memetakan peringkat frekuensi ke peringkat referensi.
-- [ ] `hill_climb(ciphertext, lang, restarts, iterations, seed)` memakai skor bigram+trigram.
-- [ ] `detect_language(ciphertext)` opsional (FR3).
-- [ ] Tes: Caesar 100% pada teks uji; hill climbing lebih baik dari `frequency_guess` saja.
+- [x] `crack_caesar(ciphertext, lang)` memakai chi-square.
+- [x] `frequency_guess(ciphertext, lang)` memetakan peringkat frekuensi ke peringkat referensi.
+- [x] `hill_climb(ciphertext, lang, restarts, iterations, seed)` memakai skor bigram+trigram.
+- [x] `detect_language(ciphertext)` opsional (FR3).
+- [x] Tes: Caesar 100% pada teks uji; hill climbing lebih baik dari `frequency_guess` saja.
 **Selesai jika:** AC1 terpenuhi, AC2 diukur dan dilaporkan.
 
 ## M5 Evaluasi
