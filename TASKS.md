@@ -26,9 +26,9 @@ Centang `[x]` setelah selesai. Kerjakan berurutan.
 **Selesai jika:** semua tes cipher lulus.
 
 ## M3 Analisis
-- [ ] `src/analysis.py`: `letter_frequencies`, `ngram_counts`, `chi_square`,
+- [x] `src/analysis.py`: `letter_frequencies`, `ngram_counts`, `chi_square`,
       `index_of_coincidence`.
-- [ ] Tes dengan teks kecil yang hasilnya bisa dihitung manual.
+- [x] Tes dengan teks kecil yang hasilnya bisa dihitung manual.
 **Selesai jika:** tes lulus.
 
 ## M4 Cracker
