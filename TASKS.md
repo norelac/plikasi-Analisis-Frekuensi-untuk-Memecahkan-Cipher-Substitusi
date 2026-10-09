@@ -52,9 +52,9 @@ Centang `[x]` setelah selesai. Kerjakan berurutan.
 **Selesai jika:** AC4 terpenuhi, dicoba manual dengan satu contoh Inggris dan satu Indonesia.
 
 ## M7 Finalisasi
-- [ ] `pytest -q` lulus semua, `ruff check` bersih.
-- [ ] README dilengkapi: cara pakai, ringkasan hasil evaluasi, keterbatasan.
-- [ ] Buat `results/RINGKASAN.md`: angka evaluasi utama dan temuan, sebagai bahan slide.
+- [x] `pytest -q` lulus semua, `ruff check` bersih.
+- [x] README dilengkapi: cara pakai, ringkasan hasil evaluasi, keterbatasan.
+- [x] Buat `results/RINGKASAN.md`: angka evaluasi utama dan temuan, sebagai bahan slide.
 
 ## Usulan (jangan dikerjakan tanpa persetujuan)
 -
