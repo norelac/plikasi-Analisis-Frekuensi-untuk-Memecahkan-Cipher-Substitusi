@@ -278,8 +278,10 @@ def main() -> None:
         st.subheader("Editor Pemetaan Huruf (Cipher -> Plain)")
         with st.expander("Pengaturan Pemetaan Manual & Tukar Huruf", expanded=True):
             col_sw1, col_sw2, col_sw3, col_sw4 = st.columns([1, 1, 1, 1])
-            c1 = col_sw1.selectbox("Huruf Cipher 1:", ALPHABET, index=0, key="sw_c1")
-            c2 = col_sw2.selectbox("Huruf Cipher 2:", ALPHABET, index=1, key="sw_c2")
+            # Pastikan ALPHABET adalah list 26 elemen (Streamlit butuh sequence)
+            alpha_list = list(ALPHABET)
+            c1 = col_sw1.selectbox("Huruf Cipher 1:", alpha_list, index=0, key="sw_c1")
+            c2 = col_sw2.selectbox("Huruf Cipher 2:", alpha_list, index=1, key="sw_c2")
             if col_sw3.button("🔄 Tukar Dua Huruf"):
                 v1 = st.session_state.cipher_to_plain[c1]
                 v2 = st.session_state.cipher_to_plain[c2]
