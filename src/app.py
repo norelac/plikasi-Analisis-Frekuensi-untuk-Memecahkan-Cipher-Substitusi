@@ -17,7 +17,7 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from src import analysis, cipher, cracker
-from src.cipher import ALPHABET
+from src.cipher import ALPHABET as ALPHABET_STR
 from src.reference import load_reference
 
 SAMPLE_TEXTS = {
@@ -33,6 +33,9 @@ SAMPLE_TEXTS = {
         "structural patterns which leak information through monoalphabetic substitution ciphers."
     ),
 }
+
+ALPHABET = tuple(ALPHABET_STR)  # Konversi ke tuple untuk kompatibilitas Streamlit selectbox
+
 
 def init_session_state() -> None:
     """Inisialisasi state sesi jika belum ada."""
