@@ -79,6 +79,25 @@ Hasil akan disimpan di:
 ### 4. Menjalankan Pengujian (Testing)
 
 ```bash
+pytest -q              # Jalankan semua tes
+ruff check .           # Cek kualitas kode
+ruff format .          # Format kode otomatis
+```
+
+### 5. Menjalankan Secara Langsung (tanpa venv)
+
+Jika tidak menggunakan virtual environment:
+
+```bash
+pip install -r requirements.txt
+streamlit run src/app.py
+```
+
+**Catatan:** Pastikan Python 3.11+ sudah terinstall di sistem.
+
+### 4. Menjalankan Pengujian (Testing)
+
+```bash
 pytest -q
 ruff check .
 ```
